@@ -485,6 +485,57 @@ class HuggingFaceSettings(BaseModel):
     model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
 
 
+class GigaChatSettings(BaseModel):
+    """
+    Settings for using GigaChat models in the fast-agent application.
+    Supports two authentication methods:
+    1. API key authentication (api_key)
+    2. Certificate-based authentication (certificate_path or cert_path/key_path)
+
+    Certificate configuration supports both new and legacy formats:
+    - New: certificate_path (single file with cert and key)
+    - Legacy: cert_path, key_path, ca_bundle (separate files)
+    """
+
+    api_key: str | None = None
+    """API key for authentication. If provided, base_url defaults to public API endpoint."""
+
+    certificate_path: str | None = None
+    """Path to certificate file for certificate-based authentication (new format).
+    If provided, base_url defaults to IFT endpoint and verify_ssl_certs is True."""
+
+    # Legacy certificate parameters (for backward compatibility)
+    cert_path: str | None = None
+    """Client certificate file path (legacy format, used with key_path)."""
+
+    key_path: str | None = None
+    """Private key file path (legacy format, used with cert_path)."""
+
+    ca_bundle: str | None = None
+    """CA bundle file path for server certificate verification (legacy format)."""
+
+    base_url: str | None = None
+    """Base URL for the API. Auto-determined based on auth method if not specified:
+    - API key: https://gigachat.devices.sberbank.ru/api/v1
+    - Certificate: https://gigachat-ift.sberdevices.delta.sbrf.ru/v1/"""
+
+    verify_ssl_certs: bool | None = None
+    """Whether to verify SSL certificates. Auto-determined based on auth method if not specified:
+    - API key: False
+    - Certificate: True"""
+
+    scope: str = "GIGACHAT_API_PERS"
+    """OAuth scope for token requests (used with API key authentication)"""
+
+    model: str = "GigaChat"
+    """Default model name"""
+
+    default_headers: dict[str, str] | None = None
+    """Custom headers to include in all requests to the GigaChat API."""
+
+    model_config = ConfigDict(extra="allow", arbitrary_types_allowed=True)
+
+
 class LoggerSettings(BaseModel):
     """
     Logger settings for the fast-agent application.
@@ -653,6 +704,9 @@ class Settings(BaseSettings):
 
     groq: GroqSettings | None = None
     """Settings for using the Groq provider in the fast-agent application"""
+
+    gigachat: GigaChatSettings | None = None
+    """Settings for using GigaChat models in the fast-agent application"""
 
     logger: LoggerSettings = LoggerSettings()
     """Logger settings for the fast-agent application"""

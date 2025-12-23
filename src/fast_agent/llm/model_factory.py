@@ -110,6 +110,10 @@ class ModelFactory:
         "qwen-plus": Provider.ALIYUN,
         "qwen-max": Provider.ALIYUN,
         "qwen-long": Provider.ALIYUN,
+        "gigachat": Provider.GIGACHAT,
+        "gigachat-2": Provider.GIGACHAT,
+        "gigachat-2-pro": Provider.GIGACHAT,
+        "gigachat-2-max": Provider.GIGACHAT,
     }
 
     MODEL_ALIASES = {
@@ -149,6 +153,10 @@ class ModelFactory:
         "deepseek31": "hf.deepseek-ai/DeepSeek-V3.1",
         "kimithink": "hf.moonshotai/Kimi-K2-Thinking:together",
         "deepseek32": "deepseek-ai/DeepSeek-V3.2-Exp:novita",
+        "gigachat": "gigachat-2",
+        "gigachat-2": "gigachat-2",
+        "gigachat-2-pro": "gigachat-2-pro",
+        "gigachat-2-max": "gigachat-2-max",
     }
 
     @staticmethod
@@ -380,6 +388,10 @@ class ModelFactory:
                 from fast_agent.llm.provider.openai.llm_groq import GroqLLM
 
                 return GroqLLM
+            if provider == Provider.GIGACHAT:
+                from fast_agent.llm.provider.openai.llm_gigachat import GigaChatLLM
+
+                return GigaChatLLM
             if provider == Provider.RESPONSES:
                 from fast_agent.llm.provider.openai.responses import ResponsesLLM
 

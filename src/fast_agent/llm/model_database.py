@@ -236,6 +236,11 @@ class ModelDatabase:
         context_window=262_000, max_output_tokens=8192, tokenizes=TEXT_ONLY
     )
 
+    # GigaChat Models
+    GIGACHAT_STANDARD = ModelParameters(
+        context_window=128000, max_output_tokens=32768, tokenizes=OPENAI_MULTIMODAL
+    )
+
     # Model configuration database
     # KEEP ALL LOWER CASE KEYS
     MODELS: dict[str, ModelParameters] = {
@@ -341,7 +346,12 @@ class ModelDatabase:
         "minimaxai/minimax-m2": GLM_46,
         "qwen/qwen3-next-80b-a3b-instruct": HF_PROVIDER_QWEN3_NEXT,
         "deepseek-ai/deepseek-v3.1": HF_PROVIDER_DEEPSEEK31,
-        "deepseek-ai/deepseek-v3.2-exp": HF_PROVIDER_DEEPSEEK32,
+        "deepseek-ai/DeepSeek-V3.2-Exp": HF_PROVIDER_DEEPSEEK32,
+        # GigaChat Models
+        "gigachat": GIGACHAT_STANDARD,
+        "gigachat-2": GIGACHAT_STANDARD,
+        "gigachat-2-pro": GIGACHAT_STANDARD,
+        "gigachat-2-max": GIGACHAT_STANDARD,
     }
 
     @classmethod

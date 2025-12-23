@@ -5,6 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
+# My files
+mvp_agent/
+fastagent.jsonl
 
 # Distribution / packaging
 .Python
@@ -124,6 +127,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv/
 env/
 venv/
 ENV/
@@ -180,6 +184,8 @@ project_contents.md
 # example logs
 examples/**/*.jsonl
 fastagent.secrets.yaml
+fastagent.config.yaml
+*.secrets.yaml
 CLAUDE.md
 example-outputs/
 
